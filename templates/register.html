@@ -1,0 +1,52 @@
+{% extends "layout_login_register.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          {% if get_flashed_messages() %}
+          <div class="alert alert-primary border text-center" role="alert">
+            {{ get_flashed_messages() | join(" ") }}
+          </div>
+          {% endif %}
+          <h5 class="card-title text-center">Register</h5>
+          <form class="form-signin" action="{{ url_for('register') }}" method="POST">
+            <div class="form-label-group">
+              <input type="text" id="username" name="username" class="form-control" aria-describedby="usernameHelp" placeholder="Username" pattern="^[a-z0-9_-]{3,15}$" required autofocus>
+              <label for="username">Username</label>
+              <small id="emailHelp" class="form-text text-muted">Alphanumeric text that may include <strong>_</strong> and <strong>-</strong> having a length of <strong>3 to 16</strong> characters.</small>
+            </div>
+
+            <div class="form-label-group">
+              <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email address" required>
+              <label for="email">Email address</label>
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-label-group">
+              <input type="password" id="password" name="password" class="form-control" aria-describedby="passwordHelp" placeholder="Password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,15}$" required>
+              <label for="password">Password</label>
+              <small id="passwordHelp" class="form-text text-muted">Minimum eight characters, at least one upper and lower case English letter, one number and one special character.</small>
+            </div>
+
+            <div class="form-label-group">
+              <input type="password" id="confirmation" name="confirmation" class="form-control" placeholder="Confirm Password" required>
+              <label for="confirmation">Confirm Password</label>
+            </div>
+            <center><div class="g-recaptcha" data-sitekey="{{ SITE_KEY }}"></div></center>
+            <br/>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+            <hr class="my-4">
+            <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" disabled><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+            <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit" disabled><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

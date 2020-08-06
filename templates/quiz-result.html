@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Quiz Result{% endblock %}
+
+{% block main %}
+<div class="alert alert-success space" role="alert">
+  <div class="d-flex justify-content-between">
+    <div><strong>Score:</strong> {{ total }} / {{ data["results"] | length }}</div>
+    <div><strong>Time:</strong> {{ time }}</div>
+  </div>
+</div>
+{% for q in data["results"]: %}
+<ul class="list-group space">
+  <li class="list-group-item">Question: {{ q["question"] | safe }}</li>
+  <li class="list-group-item list-group-item-primary">Correct answer: {{ q["correct_answer"] | safe }}</li>
+  {% if q["user_answer"] | length == 0 %}
+  <li class="list-group-item list-group-item-danger">Your answer: (no answer selected)</li>
+  {% else %}
+    {% for answer in q["user_answer"] %}
+    {% if q["user_choice"] == "right" %}
+    <li class="list-group-item list-group-item-success">Your answer: {{ answer | safe }}</li>
+    {% else %}
+    <li class="list-group-item list-group-item-danger">Your answer: {{ answer | safe }}</li>
+    {% endif %}
+    {% endfor %}
+  {% endif %}
+</ul>
+{% endfor %}
+{% endblock %}

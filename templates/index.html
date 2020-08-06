@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+<!-- Heading Row -->
+<div class="row align-items-center my-5">
+  <div class="col-lg-7">
+    <img class="img-fluid rounded mb-4 mb-lg-0" src="/static/image.png" width="900px" height="400px" alt="Image">
+  </div>
+  <!-- /.col-lg-8 -->
+  <div class="col-lg-5">
+    <h1 class="font-weight-light">TriviaUp</h1>
+    <p>TriviaUp online trivia is an exciting question quiz. Choose your favourite category, from General Knowledge, Entertainment, History, Geography, Science and many more and see where you rank compared to all daily plays.</p>
+    <a class="btn btn-primary" href="{{ url_for('new_quiz') }}">Play now!</a>
+  </div>
+  <!-- /.col-md-4 -->
+</div>
+<!-- /.row -->
+
+<!-- Call to Action Well -->
+<div class="card text-white bg-info my-5 py-4 text-center">
+  <div class="card-body">
+    <p class="text-white m-0"><strong>FREE TO PLAY</strong> and it always will be!</p>
+  </div>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+  <div class="col-md-4 mb-5">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="card-title">24 Categories</h2>
+        <p class="card-text">We have a selection of 24 categories to choose from! You can choose your favourite category from General Knowledge, Entertainment, Geography, History, Science and many more. You can also choose a mixed quiz.</p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ url_for('new_quiz') }}" class="btn btn-primary btn-sm">New Quiz</a>
+      </div>
+    </div>
+  </div>
+  <!-- /.col-md-4 -->
+  <div class="col-md-4 mb-5">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="card-title">Questions & Difficulty</h2>
+        <p class="card-text">You can generate quizzes containing 1 up to 50 questions. Play on easy, medium or hard mode. Alternatively, choose to play mixed difficulty questions to combine all three modes in one.</p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">Try Now</a>
+      </div>
+    </div>
+  </div>
+  <!-- /.col-md-4 -->
+  <div class="col-md-4 mb-5">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="card-title">Hall of Fame</h2>
+        <p class="card-text">Visit Hall of Fame and check where you rank compared to all daily plays. Statistics are available based on the number of questions, category and difficulty. View top players and compete to be the best!</p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ url_for('hof_today') }}" class="btn btn-primary btn-sm">Hall of Fame</a>
+      </div>
+    </div>
+  </div>
+  <!-- /.col-md-4 -->
+</div>
+<!-- /.row -->
+{% endblock %}

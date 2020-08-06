@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ user.username }}'s profile{% endblock %}
+
+{% block main %}
+<!-- PUBLIC INFO -->
+<div class="card space">
+  <h5 class="card-header">{{ user.username }}'s profile</h5>
+  <div class="card-body">
+    <div class="row">
+      <label for="username" class="col-sm-2 col-form-label"><strong>Username</strong></label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="username" value="{{ user.username }}">
+      </div>
+      <label for="role" class="col-sm-2 col-form-label"><strong>Role</strong></label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="role" value="{{ user.role }}">
+      </div>
+    </div>
+    <div class="row">
+      <label for="created" class="col-sm-2 col-form-label"><strong>Member since</strong></label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="created" value="{{ user.created_on.strftime('%d-%m-%Y') }}">
+      </div>
+      <label for="login" class="col-sm-2 col-form-label"><strong>Last login</strong></label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="login" value="{{ user.last_login.strftime('%d-%m-%Y, %H:%M') }}">
+      </div>
+    </div>
+    <div class="row">
+      <label for="total_submission" class="col-sm-2 col-form-label"><strong>Completed quizzes</strong></label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="total_submission" value="{{ user.total_submission }}">
+      </div>
+      <label for="total_max_score" class="col-sm-2 col-form-label"><strong>Max score quizzes</strong></label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="total_max_score" value="{{ user.total_max_score }}">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if user.username == session["username"] %}
+<div class="card">
+  <div class="card-header">
+    Update Profile
+  </div>
+  <div class="card-body">
+    <form action="{{ url_for('profile', username=session['username']) }}" method="POST">
+      <div class="form-group row">
+        <label for="username" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <input name="username" type="text" class="form-control" id="username" value="{{ user.username }}" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email address</label>
+        <div class="col-sm-10">
+          <input name="email" type="email" class="form-control" id="email" value="{{ user.email }}" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="old-password" class="col-sm-2 col-form-label">Old Password</label>
+        <div class="col-sm-10">
+          <input name="old-password" type="password" class="form-control" id="old-password" placeholder="Old Password" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="new-password">New Password</label>
+          <input name="new-password" type="password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,15}$" class="form-control" id="new-password" aria-describedby="passwordlHelp" placeholder="New Password">
+          <small id="passwordHelp" class="form-text text-muted">Minimum eight characters, at least one upper and lower case English letter, one number and one special character.</small>
+        </div>
+        <div class="col">
+          <label for="conf-password">Confirm Password</label>
+          <input name="conf-password" type="password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,15}$" class="form-control" id="conf-password" aria-describedby="confPasswordlHelp" placeholder="Confirm Password">
+          <small id="confPasswordHelp" class="form-text text-muted">Please confirm your password.</small>
+        </div>
+      </div>
+      <center>
+        <div class="g-recaptcha" data-sitekey="{{ SITE_KEY }}"></div>
+        <br />
+        <button type="submit" class="btn btn-primary">Update</button>
+      </center>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

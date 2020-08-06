@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block title %}Play{% endblock %}
+
+{% block main %}
+<form action="{{ url_for('play') }}" method="POST">
+  {% for i in range(data["results"] | length): %}
+  <div class="alert alert-light" role="alert">
+    Question {{ i+1 }} / {{ data["results"] | length }}:
+  </div>
+  {% set q = data["results"][i] %}
+  {% set answers = q["incorrect_answers"] %}
+  {{ answers.append(q["correct_answer"]) or "" }}
+  <div class="card space">
+    <div class="card-header">
+      {{ q["category"] }} :: {{ q["difficulty"] | capitalize }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ q["question"] | safe }}</h5>
+      {% for answer in answers | shuffle %}
+        {% if q["type"] == "multiple" %}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{ answer }}" id="q{{i}}a{{loop.index}}" name="q{{i}}a{{loop.index}}">
+          <label class="form-check-label" for="q{{i}}a{{loop.index}}">
+            {{ answer | safe }}
+          </label>
+        </div>
+        {% else %}
+        <div class="custom-control custom-radio">
+          <input type="radio" value="{{ answer }}" id="q{{i}}a{{loop.index}}" name="q{{i}}a1" class="custom-control-input">
+          <label class="custom-control-label" for="q{{i}}a{{loop.index}}">{{ answer }}</label>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+</form>
+{% endblock %}

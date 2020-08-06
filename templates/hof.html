@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Hall of Fame :: {{ short }}{% endblock %}
+
+{% block main %}
+<h1 class="display-4 title">{{ title }}</h1>
+
+<div class="table-responsive">
+  <table id="tableHOF" class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Questions</th>
+        <th scope="col">Difficulty</th>
+        <th scope="col">Category</th>
+        <th scope="col">Score</th>
+        <th scope="col">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td><a href="{{ url_for('profile', username=row["username"]) }}">{{ row["username"] }}</a></td>
+        <td>{{ row["questions"] }}</td>
+        <td>{{ row["difficulty"] }}</td>
+        <td>{{ row["category"] }}</td>
+        <td>{{ row["score"] }}</td>
+        <td>{{ row["time"] | time }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
